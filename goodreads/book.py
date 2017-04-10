@@ -1,7 +1,7 @@
 """Goodreads book class"""
 from . import author
 from . import shelf
-
+import json
 
 class GoodreadsBook:
     def __init__(self, book_dict, client):
@@ -146,3 +146,8 @@ class GoodreadsBook:
         """Return the list of similar books."""
         return [GoodreadsBook(b, self._client)
                 for b in self._book_dict['similar_books']['book']]
+    @property
+    def toJSON(self):
+        """Return a json object."""
+        return json.dumps(self, default=lambda o: self._book_dict, 
+            sort_keys=True, indent=4)

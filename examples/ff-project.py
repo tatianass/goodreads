@@ -16,19 +16,12 @@ def writeToJSONFile(path, fileName, data):
 gc = client.GoodreadsClient('fCUHaHylHEkSW3jJcZJTQ', 'dOKwd2Kewa5sIpoAynUEVl44s5wscrwWoAiGwBuijTI')
 
 #get all books by query
-books = gc.search_books_all_pages('Lesbian', search_field='genre')
+books = gc.search_books('Lesbian', search_field='genre')
 
 #parse books to single array
-books = singleArray(books)
+#books = singleArray(books)
 
 #to json
-data = []
 for book in books:
-    i = {}
-    i['title'] = book.title
-    i['author'] = str(book.authors[0])
-    data.append(i)
-    
-writeToJSONFile('./','ff-books',data)
-
+    print(book.toJSON)
 
