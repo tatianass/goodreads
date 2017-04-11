@@ -24,9 +24,6 @@ books = singleArray(books)
 #to json
 data = []
 for book in books:
-    i = {}
-    i['title'] = book.title
-    i['author'] = str(book.authors[0])
-    data.append(i)
-    
+    data.append(book.toJSON)
+
 writeToJSONFile('./','ff-books',data)
