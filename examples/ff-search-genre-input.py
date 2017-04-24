@@ -35,7 +35,7 @@ def checkGenre(shelves, genre):
 gc = client.GoodreadsClient('fCUHaHylHEkSW3jJcZJTQ', 'dOKwd2Kewa5sIpoAynUEVl44s5wscrwWoAiGwBuijTI')
 
 #get all books by query
-books = gc.search_books_all_pages('crime', search_field='genre')
+books = gc.search_books_all_pages('Lesbian', search_field='genre')
 
 #parse books to single array
 books = singleArray(books)
@@ -48,6 +48,6 @@ for book in books:
         if(checkGenre(shelves, genre)):
             i = {}
             i['title'] = book.title
-            i['author'] = book.authors[0].encode('utf-8')
+            i['author'] = book.authors[0].name
             data[genre].append(i)      
 writeToJSONFile('./', 'genre', data)
