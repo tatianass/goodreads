@@ -26,7 +26,9 @@ data = []
 for book in books:
     i = {}
     i['title'] = book.title
-    i['author'] = str(book.authors[0])
+    i['author'] = book.authors[0].name
+    i['isbn'] = book.isbn
+    i['link'] = book.link
     data.append(i)
     
 writeToJSONFile('./','ff-books',data)

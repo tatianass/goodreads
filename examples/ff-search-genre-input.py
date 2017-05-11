@@ -1,7 +1,7 @@
 from goodreads import client
 import json
 
-genres = ["action","anthology","art","autobiographies","biographies","childrens","comics","cookbooks","diary","dictionaries","drama","fantasy","health","history","horror","journal","mystery","poetry","romance","science-fiction","self-help","travel","sci-fi"]
+genres = ["action","anthology","art","autobiographies","biographies","childrens","comics","cookbooks","diary","dictionaries","drama","fantasy","health","history","horror","journal","mystery","poetry","romance","science-fiction","self-help","travel","sci-fi", "audiobook"]
 genresWithHyphen = ["science-fiction","self-help","sci-fi"]
 
 def singleArray(inputlist):
@@ -41,7 +41,7 @@ books = gc.search_books_all_pages('Lesbian', search_field='genre')
 books = singleArray(books)
 
 #to json
-data = {"action":[],"anthology":[],"art":[],"autobiographies":[],"biographies":[],"childrens":[],"comics":[],"cookbooks":[],"diary":[],"dictionaries":[],"drama":[],"fantasy":[],"health":[],"history":[],"horror":[],"journal":[],"mystery":[],"poetry":[],"romance":[],"science-fiction":[],"self-help":[],"travel":[],"sci-fi":[]}
+data = {"action":[],"anthology":[],"art":[],"autobiographies":[],"biographies":[],"childrens":[],"comics":[],"cookbooks":[],"diary":[],"dictionaries":[],"drama":[],"fantasy":[],"health":[],"history":[],"horror":[],"journal":[],"mystery":[],"poetry":[],"romance":[],"science-fiction":[],"self-help":[],"travel":[],"sci-fi":[], "audiobook":[]}
 for book in books:
     shelves = splitShelves(book.popular_shelves)
     for genre in genres:
