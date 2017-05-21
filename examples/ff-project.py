@@ -25,10 +25,12 @@ books = singleArray(books)
 data = []
 for book in books:
     i = {}
+    i['isbn'] = book.isbn
+    i['isbn13'] = book.isbn13
     i['title'] = book.title
     i['author'] = book.authors[0].name
-    i['isbn'] = book.isbn
     i['link'] = book.link
+    i['popular_shelves'] = book.popular_shelves
     data.append(i)
     
 writeToJSONFile('./','ff-books',data)

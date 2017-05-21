@@ -1,25 +1,6 @@
-from goodreads import client
 import json
 
-genres = ["action","anthology","art","autobiographies","biographies","childrens","comics","cookbooks","diary","dictionaries","drama","fantasy","health","history","horror","journal","mystery","poetry","romance","science-fiction","self-help","travel","sci-fi", "audiobook"]
-genresWithHyphen = ["science-fiction","self-help","sci-fi"]
-
-def singleArray(inputlist):
-    outputlist = []
-    for i in inputlist:
-      outputlist.extend(i)
-    return outputlist
-
-#split shelves
-def splitShelves(shelves):
-    output = []
-    for shelve in shelves:
-        if(shelve in genresWithHyphen):
-            output.append(shelve)
-        else:
-            output.extend(shelve.split("-"))
-    
-    return output
+genres = ["20th-century","21st-century","3-stars","4-stars","5-stars","action","adult","adventure","age-gap","anthology","art","audiobook","autobiography","bdsm","biography","businesswoman","celebrity","classics","college","comedy","comics","coming-of-age","coming-out","contemporary","crime","crime-mystery","criminal","dark","detective","disability","diversity","drama","dystopian","ebook","erotica","family","fantasy","favorites","favorite-series","fiction","friendship","historical","horror","humor","kids","law-enforcement","magic","medical","memoir","military","mystery","no-for-kids","non-fiction","paranormal","poetry","politics","psychology","relationships","religion","rich-girl-poor-girl","school","science-fiction","series","shapeshifters","short-stories","stand-alone","supernatural","suspense","thriller","trans","urban-fantasy","vampires","werewolves","young-adult"]
                       
 #write object to json
 def writeToJSONFile(path, fileName, data):
@@ -31,23 +12,19 @@ def writeToJSONFile(path, fileName, data):
 def checkGenre(shelves, genre):
     return genre in shelves
 
-#authetification
-gc = client.GoodreadsClient('fCUHaHylHEkSW3jJcZJTQ', 'dOKwd2Kewa5sIpoAynUEVl44s5wscrwWoAiGwBuijTI')
-
-#get all books by query
-books = gc.search_books_all_pages('Lesbian', search_field='genre')
-
-#parse books to single array
-books = singleArray(books)
-
 #to json
-data = {"action":[],"anthology":[],"art":[],"autobiographies":[],"biographies":[],"childrens":[],"comics":[],"cookbooks":[],"diary":[],"dictionaries":[],"drama":[],"fantasy":[],"health":[],"history":[],"horror":[],"journal":[],"mystery":[],"poetry":[],"romance":[],"science-fiction":[],"self-help":[],"travel":[],"sci-fi":[], "audiobook":[]}
-for book in books:
-    shelves = splitShelves(book.popular_shelves)
-    for genre in genres:
-        if(checkGenre(shelves, genre)):
-            i = {}
-            i['title'] = book.title
-            i['author'] = book.authors[0].name
-            data[genre].append(i)      
+data = {"20th-century": [],"21st-century": [],"3-stars": [],"4-stars": [],"5-stars": [],"action": [],"adult": [],"adventure": [],"age-gap": [],"anthology": [],"art": [],"audiobook": [],"autobiography": [],"bdsm": [],"biography": [],"businesswoman": [],"celebrity": [],"classics": [],"college": [],"comedy": [],"comics": [],"coming-of-age": [],"coming-out": [],"contemporary": [],"crime": [],"crime-mystery": [],"criminal": [],"dark": [],"detective": [],"disability": [],"diversity": [],"drama": [],"dystopian": [],"ebook": [],"erotica": [],"family": [],"fantasy": [],"favorites": [],"favorite-series": [],"fiction": [],"friendship": [],"historical": [],"horror": [],"humor": [],"kids": [],"law-enforcement": [],"magic": [],"medical": [],"memoir": [],"military": [],"mystery": [],"no-for-kids": [],"non-fiction": [],"paranormal": [],"poetry": [],"politics": [],"psychology": [],"relationships": [],"religion": [],"rich-girl-poor-girl": [],"school": [],"science-fiction": [],"series": [],"shapeshifters": [],"short-stories": [],"stand-alone": [],"supernatural": [],"suspense": [],"thriller": [],"trans": [],"urban-fantasy": [],"vampires": [],"werewolves": [],"young-adult": []}
+with open('ff-books.json') as data_file:
+    books = json.load(data_file)
+    for book in books:
+        shelves = book['popular_shelves']
+        for genre in genres:
+            if(checkGenre(shelves, genre)):
+                i = {}
+                i['isbn'] = book['isbn']
+                i['isbn13'] = book['isbn13']
+                i['title'] = book['title']
+                i['author'] = book['author']
+                i['link'] = book['link']
+                data[genre].append(i)      
 writeToJSONFile('./', 'genre', data)
